@@ -33,7 +33,17 @@ function setOutput() {
   const primaryOperandEl = document.querySelector('.primary-operand')
   const secondaryOperandEl = document.querySelector('.secondary-operand')
   const operationEl = document.querySelector('[data-operation]')
-  if (primaryOutput != null) primaryOperandEl.innerText = primaryOutput
-  if (secondaryOutput != null) secondaryOperandEl.innerText = secondaryOutput
-  if (enteredOperation != null) operationEl.innerText = enteredOperation
+  primaryOperandEl.innerText = formatOutput(primaryOutput)
+  secondaryOperandEl.innerText = formatOutput(secondaryOutput)
+  operationEl.innerText = enteredOperation
+}
+
+function formatOutput(raw) {
+  if (raw === '') {
+    return raw
+  }
+  const nf = new Intl.NumberFormat('en-US', {
+    roundingMode: 'expand',
+  })
+  return nf.format(raw)
 }

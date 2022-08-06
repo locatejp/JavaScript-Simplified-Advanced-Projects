@@ -23,10 +23,9 @@ export default class Calculator {
     if (this.primaryOutput.toString().length > 9) {
       return
     }
+    const withNumberAdded = this.primaryOutput + clickedNumber
     this.primaryOutput =
-      this.primaryOutput === 0
-        ? clickedNumber
-        : (this.primaryOutput += clickedNumber)
+      this.primaryOutput === 0 ? clickedNumber : withNumberAdded
   }
   decimal() {
     if (!this.primaryOutput.toString().includes('.')) {
@@ -42,9 +41,10 @@ export default class Calculator {
       return
     }
     const operatorFn = this.getOpName(this.enteredOperation)
-    const a = parseInt(this.secondaryOutput)
-    const b = parseInt(this.primaryOutput)
-    const result = this[operatorFn](a, b)
+    const a = parseFloat(this.secondaryOutput)
+    const b = parseFloat(this.primaryOutput)
+    const result = parseFloat(this[operatorFn](a, b))
+    console.log({ result })
     this.primaryOutput = result
     this.secondaryOutput = ''
     this.enteredOperation = ''
